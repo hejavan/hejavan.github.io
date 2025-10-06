@@ -90,9 +90,25 @@
             gap: 10px;
             transition: background 0.3s;
         }
-        
         .refresh-btn:hover {
             background: #2563eb;
+        }
+        .edit-btn {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-family: Vazir;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        .edit-btn:hover {
+            background: #555;
         }
         
         .donate-btn {
@@ -541,7 +557,10 @@
                 <i class="fas fa-sync-alt"></i>
                 بروزرسانی اطلاعات
             </button>
-            
+            <button class="edit-btn" id="edit-btn">
+                <i class="fas fa-edit-alt"></i>
+                ویرایش اطلاعات
+            </button>
             <button class="donate-btn" id="donate-btn">
                 <i class="fas fa-donate"></i>
                 پرداخت کمک مالی
@@ -647,7 +666,12 @@
         // تنظیم رویدادها
         function setupEventListeners() {
             // بروزرسانی اطلاعات
-            document.getElementById('refresh-btn').addEventListener('click', loadCSVData);
+            document.getElementById('refresh-btn').addEventListener('click', loadCSVData);            
+            
+            // ویرایش اطلاعات
+            document.getElementById('edit-btn').addEventListener('click', function() {
+    window.open('https://docs.google.com/spreadsheets/d/1REA4d7ZXSTZXLTxZlKztiexZ9erah8ci-U3f6ToQLW4/edit?pli=1&gid=0#gid=0', '_blank');
+});
             
             // باز کردن مودال پرداخت
             document.getElementById('donate-btn').addEventListener('click', function() {
