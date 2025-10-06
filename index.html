@@ -3,458 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صندوق مالی مدرسه</title>
+    <title>صندوق مالی دبستان هجوان مرند</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Vazir, Tahoma, Arial, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
+            color: #333; line-height: 1.6; padding: 20px; min-height: 100vh;
         }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        
+        .container { max-width: 1100px; margin: 0 auto; }
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
+            text-align: center; margin-bottom: 30px; padding: 25px;
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            border-radius: 20px;
-            color: white;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
+            border-radius: 20px; color: white; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            position: relative; overflow: hidden;
         }
-        
         header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ""; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
             transform: rotate(30deg);
         }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+        .description { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
         
         .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 25px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 15px; margin-bottom: 25px;
+            background: white; padding: 20px; border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-        
         .refresh-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-family: Vazir;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.3s;
+            background: #3b82f6; color: white; border: none; padding: 12px 25px;
+            border-radius: 10px; font-family: Vazir; font-size: 1.1rem; cursor: pointer;
+            display: flex; align-items: center; gap: 10px; transition: background 0.3s;
         }
-        
-        .refresh-btn:hover {
-            background: #2563eb;
-        }
-        
+        .refresh-btn:hover { background: #2563eb; }
         .donate-btn {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-family: Vazir;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white;
+            border: none; padding: 12px 25px; border-radius: 10px; font-family: Vazir;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
-        
         .donate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+        .sheets-btn {
+            background: linear-gradient(135deg, #0f9d58 0%, #1b5e20 100%); color: white;
+            border: none; padding: 12px 25px; border-radius: 10px; font-family: Vazir;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            transition: transform 0.3s; text-decoration: none;
+        }
+        .sheets-btn:hover {
+            transform: translateY(-3px); color: white;
         }
         
         .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px;
         }
-        
         .card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            text-align: center;
+            background: white; border-radius: 15px; padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); text-align: center;
             transition: transform 0.3s ease;
         }
+        .card:hover { transform: translateY(-5px); }
+        .card.income { border-top: 5px solid #10b981; }
+        .card.expense { border-top: 5px solid #ef4444; }
+        .card.balance { border-top: 5px solid #3b82f6; }
+        .card-title { font-size: 1.1rem; color: #64748b; margin-bottom: 10px; }
+        .card-value { font-size: 1.8rem; font-weight: bold; }
+        .income .card-value { color: #10b981; }
+        .expense .card-value { color: #ef4444; }
+        .balance .card-value { color: #3b82f6; }
         
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card.income {
-            border-top: 5px solid #10b981;
-        }
-        
-        .card.expense {
-            border-top: 5px solid #ef4444;
-        }
-        
-        .card.balance {
-            border-top: 5px solid #3b82f6;
-        }
-        
-        .card-title {
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-bottom: 10px;
-        }
-        
-        .card-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        
-        .income .card-value {
-            color: #10b981;
-        }
-        
-        .expense .card-value {
-            color: #ef4444;
-        }
-        
-        .balance .card-value {
-            color: #3b82f6;
-        }
-        
-        .transaction-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
+        .transaction-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
         .transaction-item {
-            background-color: white;
-            border-radius: 15px;
-            padding: 18px;
+            background-color: white; border-radius: 15px; padding: 18px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; position: relative; overflow: hidden;
         }
-        
         .transaction-item::before {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 6px;
+            content: ""; position: absolute; right: 0; top: 0;
+            height: 100%; width: 6px;
         }
-        
-        .transaction-item.income::before {
-            background: linear-gradient(to bottom, #10b981, #34d399);
-        }
-        
-        .transaction-item.expense::before {
-            background: linear-gradient(to bottom, #ef4444, #f87171);
-        }
-        
-        .transaction-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
+        .transaction-item.income::before { background: linear-gradient(to bottom, #10b981, #34d399); }
+        .transaction-item.expense::before { background: linear-gradient(to bottom, #ef4444, #f87171); }
+        .transaction-item:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); }
         
         .transaction-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15px;
-            font-size: 1.3rem;
-            flex-shrink: 0;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-left: 15px; font-size: 1.3rem; flex-shrink: 0;
         }
+        .income .transaction-icon { background-color: #d1fae5; color: #10b981; }
+        .expense .transaction-icon { background-color: #fee2e2; color: #ef4444; }
         
-        .income .transaction-icon {
-            background-color: #d1fae5;
-            color: #10b981;
-        }
-        
-        .expense .transaction-icon {
-            background-color: #fee2e2;
-            color: #ef4444;
-        }
-        
-        .transaction-details {
-            flex-grow: 1;
-        }
-        
+        .transaction-details { flex-grow: 1; }
         .transaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 8px; flex-wrap: wrap; gap: 10px;
         }
-        
-        .transaction-title {
-            font-size: 1.2rem;
-            color: #1e293b;
-            font-weight: bold;
-        }
-        
-        .transaction-amount {
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        
-        .income .transaction-amount {
-            color: #10b981;
-        }
-        
-        .expense .transaction-amount {
-            color: #ef4444;
-        }
+        .transaction-title { font-size: 1.2rem; color: #1e293b; font-weight: bold; }
+        .transaction-amount { font-size: 1.3rem; font-weight: bold; }
+        .income .transaction-amount { color: #10b981; }
+        .expense .transaction-amount { color: #ef4444; }
         
         .transaction-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px;
         }
-        
         .transaction-person {
-            background-color: #e0f2fe;
-            color: #0369a1;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background-color: #e0f2fe; color: #0369a1; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px;
         }
-        
-        .transaction-date {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-        
+        .transaction-date { color: #64748b; font-size: 0.9rem; }
         .transaction-category {
-            background-color: #f1f5f9;
-            color: #475569;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            background-color: #f1f5f9; color: #475569;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;
         }
         
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000; justify-content: center; align-items: center;
         }
-        
         .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: white; border-radius: 20px; padding: 30px;
+            width: 90%; max-width: 500px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
         }
-        
         .close-modal {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #64748b;
+            position: absolute; left: 20px; top: 20px;
+            font-size: 1.5rem; cursor: pointer; color: #64748b;
         }
-        
-        .modal-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1e293b;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #475569;
-            font-weight: bold;
-        }
-        
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            font-family: Vazir;
-            font-size: 1rem;
-        }
-        
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
+        .modal-title { text-align: center; margin-bottom: 20px; color: #1e293b; }
         
         .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            display: grid; grid-template-columns: 1fr;
+            gap: 10px; margin-bottom: 20px;
         }
         
-        .payment-method {
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
+        .zarinpal-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;
+            border: none; padding: 15px; border-radius: 10px; font-family: Vazir;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; transition: transform 0.3s;
+            text-decoration: none;
+        }
+        .zarinpal-btn:hover {
+            transform: translateY(-3px); color: white;
         }
         
-        .payment-method.selected {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
+        .admin-info {
+            background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 10px;
+            padding: 20px; margin: 20px 0; color: #0369a1;
         }
+        .admin-info h3 { margin-bottom: 15px; color: #075985; }
+        .admin-info ol { padding-right: 20px; margin: 15px 0; }
+        .admin-info li { margin-bottom: 8px; }
         
-        .payment-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #6b7280;
-        }
-        
-        .payment-method.selected .payment-icon {
-            color: #3b82f6;
-        }
-        
-        .payment-name {
-            font-size: 0.9rem;
-            color: #374151;
-        }
-        
-        .submit-payment {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-family: Vazir;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .submit-payment:hover {
-            background: linear-gradient(135deg, #0da271 0%, #2bbf87 100%);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-top: 30px;
-        }
+        footer { text-align: center; padding: 20px; color: #64748b; font-size: 0.9rem; margin-top: 30px; }
         
         @media (max-width: 768px) {
-            .transaction-header, .transaction-meta {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .transaction-title {
-                font-size: 1.1rem;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .summary-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .payment-methods {
-                grid-template-columns: 1fr;
-            }
+            .transaction-header, .transaction-meta { flex-direction: column; align-items: flex-start; }
+            .transaction-title { font-size: 1.1rem; }
+            h1 { font-size: 1.8rem; }
+            .summary-cards { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; align-items: stretch; }
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
+        .pulse { animation: pulse 2s infinite; }
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -462,77 +186,37 @@
         }
         
         .chart-container {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: white; border-radius: 15px; padding: 20px;
+            margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-        
-        .chart-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1e293b;
-        }
-        
+        .chart-title { text-align: center; margin-bottom: 20px; color: #1e293b; }
         .chart {
-            height: 300px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            gap: 10px;
-            padding: 20px 0;
+            height: 300px; display: flex; align-items: flex-end;
+            justify-content: space-around; gap: 10px; padding: 20px 0;
         }
-        
         .chart-bar {
-            flex: 1;
-            background: linear-gradient(to top, #3b82f6, #60a5fa);
-            border-radius: 5px 5px 0 0;
-            position: relative;
-            min-height: 10px;
-            transition: height 0.5s ease;
+            flex: 1; background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 5px 5px 0 0; position: relative;
+            min-height: 10px; transition: height 0.5s ease;
         }
-        
-        .chart-bar.income {
-            background: linear-gradient(to top, #10b981, #34d399);
-        }
-        
-        .chart-bar.expense {
-            background: linear-gradient(to top, #ef4444, #f87171);
-        }
-        
+        .chart-bar.income { background: linear-gradient(to top, #10b981, #34d399); }
+        .chart-bar.expense { background: linear-gradient(to top, #ef4444, #f87171); }
         .chart-label {
-            position: absolute;
-            bottom: -25px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #64748b;
+            position: absolute; bottom: -25px; left: 0;
+            width: 100%; text-align: center; font-size: 0.8rem; color: #64748b;
         }
-        
         .chart-value {
-            position: absolute;
-            top: -25px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #1e293b;
+            position: absolute; top: -25px; left: 0;
+            width: 100%; text-align: center; font-size: 0.8rem;
+            font-weight: bold; color: #1e293b;
         }
-        
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-        }
+        .loading { text-align: center; padding: 20px; color: #64748b; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>صندوق مالی مدرسه دانش</h1>
+            <h1>صندوق مالی دبستان هجوان مرند</h1>
             <p class="description">شفافیت کامل درآمدها و هزینه‌های مدرسه به همراه جزئیات کامل</p>
         </header>
         
@@ -542,10 +226,38 @@
                 بروزرسانی اطلاعات
             </button>
             
-            <button class="donate-btn" id="donate-btn">
-                <i class="fas fa-donate"></i>
-                پرداخت کمک مالی
-            </button>
+            <div style="display: flex; gap: 10px;">
+                <a class="sheets-btn" href="https://docs.google.com/spreadsheets/d/1YOUR_SHEET_ID_HERE/edit?usp=sharing" target="_blank">
+                    <i class="fab fa-google"></i>
+                    ویرایش در Google Sheets
+                </a>
+                
+                <button class="donate-btn" id="donate-btn">
+                    <i class="fas fa-donate"></i>
+                    پرداخت کمک مالی
+                </button>
+            </div>
+        </div>
+
+        <div class="admin-info">
+            <h3>📊 سیستم مدیریت مالی با Google Sheets</h3>
+            <p><strong>راهنمای مدیران برای آپدیت اطلاعات:</strong></p>
+            <ol>
+                <li>روی دکمه "ویرایش در Google Sheets" کلیک کنید</li>
+                <li>با حساب گوگل وارد شوید</li>
+                <li>داده‌های مالی جدید را وارد کنید</li>
+                <li>تغییرات به صورت خودکار ذخیره می‌شوند</li>
+                <li>به این صفحه برگردید و "بروزرسانی اطلاعات" را بزنید</li>
+            </ol>
+            <p><strong>فرمت داده‌ها در Sheets:</strong></p>
+            <ul>
+                <li>ستون A: نوع (income یا expense)</li>
+                <li>ستون B: عنوان تراکنش</li>
+                <li>ستون C: مبلغ (فقط عدد)</li>
+                <li>ستون D: شخص/منبع</li>
+                <li>ستون E: تاریخ (مثال: 1402/07/05)</li>
+                <li>ستون F: دسته‌بندی</li>
+            </ul>
         </div>
         
         <div class="summary-cards">
@@ -588,66 +300,51 @@
     <!-- مودال پرداخت -->
     <div class="modal" id="payment-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
+            <span class="close-modal" id="close-payment-modal">&times;</span>
             <h2 class="modal-title">پرداخت کمک مالی</h2>
             
-            <form id="payment-form">
-                <div class="form-group">
-                    <label class="form-label" for="donor-name">نام و نام خانوادگی</label>
-                    <input type="text" id="donor-name" class="form-input" placeholder="نام خود را وارد کنید" required>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold;">نام و نام خانوادگی</label>
+                <input type="text" id="donor-name" class="form-input" placeholder="نام خود را وارد کنید" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold;">مبلغ کمک (تومان)</label>
+                <input type="number" id="amount" class="form-input" placeholder="مبلغ را وارد کنید" min="10000" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold;">روش پرداخت</label>
+                <div class="payment-methods">
+                    <a class="zarinpal-btn" href="https://zarinp.al/zarkhan" target="_blank">
+                        <i class="fas fa-credit-card"></i>
+                        پرداخت از طریق زرین‌پال
+                    </a>
                 </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="donor-phone">شماره تماس</label>
-                    <input type="tel" id="donor-phone" class="form-input" placeholder="09xxxxxxxxx" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="amount">مبلغ کمک (تومان)</label>
-                    <input type="number" id="amount" class="form-input" placeholder="مبلغ را وارد کنید" min="10000" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">روش پرداخت</label>
-                    <div class="payment-methods">
-                        <div class="payment-method" data-method="zarinpal">
-                            <i class="fas fa-credit-card payment-icon"></i>
-                            <div class="payment-name">درگاه پرداخت</div>
-                        </div>
-                        <div class="payment-method" data-method="card">
-                            <i class="fas fa-university payment-icon"></i>
-                            <div class="payment-name">کارت به کارت</div>
-                        </div>
-                        <div class="payment-method" data-method="cash">
-                            <i class="fas fa-money-bill-wave payment-icon"></i>
-                            <div class="payment-name">نقدی</div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="payment-method" required>
-                </div>
-                
-                <button type="submit" class="submit-payment">
-                    <i class="fas fa-lock"></i>
-                    پرداخت امن
-                </button>
-            </form>
+            </div>
+            
+            <div class="admin-info" style="margin: 0;">
+                <i class="fas fa-info-circle"></i>
+                پس از پرداخت، اطلاعات شما به صورت خودکار ثبت خواهد شد
+            </div>
         </div>
     </div>
 
     <script>
-        // مسیر فایل CSV روی سرور
-        const CSV_FILE_PATH = 'https://raw.githubusercontent.com/hejavan/hejavan.github.io/refs/heads/main/school_finance.csv';
+        // ID شیت گوگل - این را باید بعد از ایجاد شیت جایگزین کنید
+        const SHEET_ID = '1YOUR_SHEET_ID_HERE';
+        const API_KEY = 'YOUR_GOOGLE_API_KEY'; // اختیاری - برای شیت‌های public نیاز نیست
         
-        // بارگذاری اولیه داده‌ها از فایل CSV
+        // بارگذاری اولیه داده‌ها
         document.addEventListener('DOMContentLoaded', function() {
-            loadCSVData();
+            loadFromGoogleSheets();
             setupEventListeners();
         });
         
         // تنظیم رویدادها
         function setupEventListeners() {
             // بروزرسانی اطلاعات
-            document.getElementById('refresh-btn').addEventListener('click', loadCSVData);
+            document.getElementById('refresh-btn').addEventListener('click', loadFromGoogleSheets);
             
             // باز کردن مودال پرداخت
             document.getElementById('donate-btn').addEventListener('click', function() {
@@ -655,44 +352,30 @@
             });
             
             // بستن مودال پرداخت
-            document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('close-payment-modal').addEventListener('click', function() {
                 document.getElementById('payment-modal').style.display = 'none';
             });
-            
-            // انتخاب روش پرداخت
-            document.querySelectorAll('.payment-method').forEach(method => {
-                method.addEventListener('click', function() {
-                    document.querySelectorAll('.payment-method').forEach(m => {
-                        m.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    document.getElementById('payment-method').value = this.getAttribute('data-method');
-                });
-            });
-            
-            // ارسال فرم پرداخت
-            document.getElementById('payment-form').addEventListener('submit', handlePayment);
         }
         
-        // بارگذاری داده‌ها از فایل CSV
-        async function loadCSVData() {
+        // بارگذاری داده‌ها از Google Sheets
+        async function loadFromGoogleSheets() {
             try {
                 showLoading();
                 
-                // در محیط واقعی، این آدرس باید به فایل CSV روی سرور اشاره کند
-                const response = await fetch(CSV_FILE_PATH);
+                // روش ساده - برای شیت‌های public
+                const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
                 
-                if (!response.ok) {
-                    throw new Error('خطا در بارگذاری فایل CSV');
-                }
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('خطا در بارگذاری از Google Sheets');
                 
                 const csvData = await response.text();
                 parseCSVData(csvData);
                 
             } catch (error) {
                 console.error('خطا:', error);
-                // اگر فایل CSV موجود نبود، از داده‌های نمونه استفاده می‌کنیم
+                // اگر Sheets در دسترس نبود، از داده‌های نمونه استفاده می‌کنیم
                 loadSampleData();
+                alert('اتصال به Google Sheets برقرار نشد. از داده‌های نمونه استفاده می‌شود.');
             }
         }
         
@@ -701,19 +384,21 @@
             const lines = csvData.split('\n');
             const transactions = [];
             
-            // فرض می‌کنیم که فایل CSV دارای هدر است
-            // فرمت: نوع,عنوان,مبلغ,شخص,تاریخ,دسته‌بندی
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
                 
-                const parts = line.split(',');
+                // پردازش خط CSV - حذف کوتیشن‌ها
+                const parts = line.split(',').map(part => 
+                    part.replace(/^"(.*)"$/, '$1').trim()
+                );
+                
                 if (parts.length < 6) continue;
                 
                 transactions.push({
                     type: parts[0],
                     title: parts[1],
-                    amount: parseInt(parts[2]),
+                    amount: parseInt(parts[2]) || 0,
                     person: parts[3],
                     date: parts[4],
                     category: parts[5]
@@ -724,56 +409,40 @@
             updateUI(transactions);
         }
         
-        // بارگذاری داده‌های نمونه (در صورت عدم وجود فایل CSV)
+        // بارگذاری داده‌های نمونه
         function loadSampleData() {
             const transactions = [
                 {
                     type: 'income',
-                    title: 'کمک مالی اولیا - مهرماه',
-                    amount: 5000000,
+                    title: 'کمک مالی اولیای پایه اول',
+                    amount: 3500000,
                     person: 'انجمن اولیا و مربیان',
                     date: '1402/07/05',
                     category: 'کمک مالی'
                 },
                 {
-                    type: 'expense',
-                    title: 'خرید کتاب‌های درسی پایه اول',
-                    amount: 2500000,
-                    person: 'مدیریت مدرسه',
-                    date: '1402/07/15',
-                    category: 'کالای آموزشی'
-                },
-                {
                     type: 'income',
                     title: 'کمک خیرین مدرسه',
-                    amount: 7500000,
+                    amount: 12500000,
                     person: 'بنیاد خیریه دانش',
                     date: '1402/07/10',
                     category: 'کمک خیرین'
                 },
                 {
                     type: 'expense',
-                    title: 'تعمیر سیستم گرمایشی سالن',
+                    title: 'خرید کتاب‌های درسی',
+                    amount: 11400000,
+                    person: 'مدیریت مدرسه',
+                    date: '1402/07/15',
+                    category: 'کالای آموزشی'
+                },
+                {
+                    type: 'expense',
+                    title: 'تعمیر سیستم گرمایشی',
                     amount: 4200000,
                     person: 'مدیریت مدرسه',
                     date: '1402/07/10',
                     category: 'تعمیرات و نگهداری'
-                },
-                {
-                    type: 'expense',
-                    title: 'تهیه وسایل ورزشی',
-                    amount: 1800000,
-                    person: 'مدیریت مدرسه',
-                    date: '1402/06/28',
-                    category: 'ورزشی'
-                },
-                {
-                    type: 'expense',
-                    title: 'برگزاری اردوی علمی',
-                    amount: 1200000,
-                    person: 'مدیریت مدرسه',
-                    date: '1402/06/15',
-                    category: 'فعالیت‌های فوق برنامه'
                 }
             ];
             
@@ -781,41 +450,12 @@
             updateUI(transactions);
         }
         
-        // پردازش پرداخت
-        function handlePayment(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('donor-name').value;
-            const phone = document.getElementById('donor-phone').value;
-            const amount = parseInt(document.getElementById('amount').value);
-            const method = document.getElementById('payment-method').value;
-            
-            if (!method) {
-                alert('لطفاً روش پرداخت را انتخاب کنید');
-                return;
-            }
-            
-            // در اینجا می‌توانید پرداخت واقعی را انجام دهید
-            // برای نمایش، فقط یک پیام نشان می‌دهیم
-            
-            // بستن مودال و ریست فرم
-            document.getElementById('payment-modal').style.display = 'none';
-            document.getElementById('payment-form').reset();
-            document.querySelectorAll('.payment-method').forEach(m => {
-                m.classList.remove('selected');
-            });
-            document.getElementById('payment-method').value = '';
-            
-            // نمایش پیام موفقیت
-            alert(`پرداخت شما با موفقیت ثبت شد. مبلغ ${formatNumber(amount)} تومان با تشکر از شما\n\nدر محیط واقعی، این تراکنش به فایل CSV اضافه خواهد شد.`);
-        }
-        
         // نمایش وضعیت بارگذاری
         function showLoading() {
             document.getElementById('transaction-list').innerHTML = `
                 <div class="loading">
                     <i class="fas fa-spinner fa-spin"></i>
-                    در حال بارگذاری اطلاعات...
+                    در حال بارگذاری اطلاعات از Google Sheets...
                 </div>
             `;
         }
@@ -855,6 +495,9 @@
             }
             
             transactionList.innerHTML = '';
+            
+            // مرتب‌سازی بر اساس تاریخ (جدیدترین اول)
+            transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
             
             transactions.forEach(transaction => {
                 const transactionItem = document.createElement('div');
