@@ -363,7 +363,7 @@
                 showLoading();
                 
                 // روش ساده - برای شیت‌های public
-                const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
+                const url = `https://docs.google.com/spreadsheets/d/e/{SHEET_ID}/pub?gid=0&single=true&output=csv`;
                 
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('خطا در بارگذاری از Google Sheets');
