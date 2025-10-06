@@ -363,7 +363,7 @@
                 showLoading();
                 
                 // روش ساده - برای شیت‌های public
-                const url = `https://docs.google.com/spreadsheets/d/e/{SHEET_ID}/pub?gid=0&single=true&output=csv`;
+                const url = `http://docs.google.com/spreadsheets/d/e/2PACX-1vTxKbZzfIawiNSsxkU3eEJWXtuGFrLU462XxPpVofuIQGDRcibsDWSwevWl5F4XlBiXsMyDQm0Kyg40/pub?gid=0&single=true&output=csv`;
                 
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('خطا در بارگذاری از Google Sheets');
