@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صندوق مالی مدرسه</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Vazir, Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .refresh-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-family: Vazir;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #2563eb;
+        }
+        
+        .donate-btn {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-family: Vazir;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card.income {
+            border-top: 5px solid #10b981;
+        }
+        
+        .card.expense {
+            border-top: 5px solid #ef4444;
+        }
+        
+        .card.balance {
+            border-top: 5px solid #3b82f6;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .income .card-value {
+            color: #10b981;
+        }
+        
+        .expense .card-value {
+            color: #ef4444;
+        }
+        
+        .balance .card-value {
+            color: #3b82f6;
+        }
+        
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .transaction-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .transaction-item::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 6px;
+        }
+        
+        .transaction-item.income::before {
+            background: linear-gradient(to bottom, #10b981, #34d399);
+        }
+        
+        .transaction-item.expense::before {
+            background: linear-gradient(to bottom, #ef4444, #f87171);
+        }
+        
+        .transaction-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transaction-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .income .transaction-icon {
+            background-color: #d1fae5;
+            color: #10b981;
+        }
+        
+        .expense .transaction-icon {
+            background-color: #fee2e2;
+            color: #ef4444;
+        }
+        
+        .transaction-details {
+            flex-grow: 1;
+        }
+        
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .transaction-title {
+            font-size: 1.2rem;
+            color: #1e293b;
+            font-weight: bold;
+        }
+        
+        .transaction-amount {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .income .transaction-amount {
+            color: #10b981;
+        }
+        
+        .expense .transaction-amount {
+            color: #ef4444;
+        }
+        
+        .transaction-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .transaction-person {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .transaction-date {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .transaction-category {
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #475569;
+            font-weight: bold;
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-family: Vazir;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #6b7280;
+        }
+        
+        .payment-method.selected .payment-icon {
+            color: #3b82f6;
+        }
+        
+        .payment-name {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+        
+        .submit-payment {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: Vazir;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .submit-payment:hover {
+            background: linear-gradient(135deg, #0da271 0%, #2bbf87 100%);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .transaction-header, .transaction-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .transaction-title {
+                font-size: 1.1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .chart {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 10px;
+            padding: 20px 0;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            min-height: 10px;
+            transition: height 0.5s ease;
+        }
+        
+        .chart-bar.income {
+            background: linear-gradient(to top, #10b981, #34d399);
+        }
+        
+        .chart-bar.expense {
+            background: linear-gradient(to top, #ef4444, #f87171);
+        }
+        
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .chart-value {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>صندوق مالی مدرسه دانش</h1>
+            <p class="description">شفافیت کامل درآمدها و هزینه‌های مدرسه به همراه جزئیات کامل</p>
+        </header>
+        
+        <div class="controls">
+            <button class="refresh-btn" id="refresh-btn">
+                <i class="fas fa-sync-alt"></i>
+                بروزرسانی اطلاعات
+            </button>
+            
+            <button class="donate-btn" id="donate-btn">
+                <i class="fas fa-donate"></i>
+                پرداخت کمک مالی
+            </button>
+        </div>
+        
+        <div class="summary-cards">
+            <div class="card income">
+                <div class="card-title">مجموع درآمدها</div>
+                <div class="card-value" id="total-income">۰ تومان</div>
+            </div>
+            
+            <div class="card expense">
+                <div class="card-title">مجموع هزینه‌ها</div>
+                <div class="card-value" id="total-expense">۰ تومان</div>
+            </div>
+            
+            <div class="card balance pulse">
+                <div class="card-title">مانده صندوق</div>
+                <div class="card-value" id="total-balance">۰ تومان</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2 class="chart-title">نمودار درآمد و هزینه‌ها</h2>
+            <div class="chart" id="chart">
+                <!-- نمودار به صورت داینامیک ایجاد می‌شود -->
+            </div>
+        </div>
+        
+        <div class="transaction-list" id="transaction-list">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                در حال بارگذاری اطلاعات...
+            </div>
+        </div>
+        
+        <footer>
+            <p>کلیه تراکنش‌های مالی مدرسه به صورت شفاف در این صفحه نمایش داده می‌شوند</p>
+            <p>آخرین بروزرسانی: <span id="last-update">-</span></p>
+        </footer>
+    </div>
+
+    <!-- مودال پرداخت -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2 class="modal-title">پرداخت کمک مالی</h2>
+            
+            <form id="payment-form">
+                <div class="form-group">
+                    <label class="form-label" for="donor-name">نام و نام خانوادگی</label>
+                    <input type="text" id="donor-name" class="form-input" placeholder="نام خود را وارد کنید" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="donor-phone">شماره تماس</label>
+                    <input type="tel" id="donor-phone" class="form-input" placeholder="09xxxxxxxxx" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="amount">مبلغ کمک (تومان)</label>
+                    <input type="number" id="amount" class="form-input" placeholder="مبلغ را وارد کنید" min="10000" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">روش پرداخت</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="zarinpal">
+                            <i class="fas fa-credit-card payment-icon"></i>
+                            <div class="payment-name">درگاه پرداخت</div>
+                        </div>
+                        <div class="payment-method" data-method="card">
+                            <i class="fas fa-university payment-icon"></i>
+                            <div class="payment-name">کارت به کارت</div>
+                        </div>
+                        <div class="payment-method" data-method="cash">
+                            <i class="fas fa-money-bill-wave payment-icon"></i>
+                            <div class="payment-name">نقدی</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="payment-method" required>
+                </div>
+                
+                <button type="submit" class="submit-payment">
+                    <i class="fas fa-lock"></i>
+                    پرداخت امن
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // مسیر فایل CSV روی سرور
+        const CSV_FILE_PATH = 'https://raw.githubusercontent.com/hejavan/hejavan.github.io/refs/heads/main/school_finance.csv';
+        
+        // بارگذاری اولیه داده‌ها از فایل CSV
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCSVData();
+            setupEventListeners();
+        });
+        
+        // تنظیم رویدادها
+        function setupEventListeners() {
+            // بروزرسانی اطلاعات
+            document.getElementById('refresh-btn').addEventListener('click', loadCSVData);
+            
+            // باز کردن مودال پرداخت
+            document.getElementById('donate-btn').addEventListener('click', function() {
+                document.getElementById('payment-modal').style.display = 'flex';
+            });
+            
+            // بستن مودال پرداخت
+            document.getElementById('close-modal').addEventListener('click', function() {
+                document.getElementById('payment-modal').style.display = 'none';
+            });
+            
+            // انتخاب روش پرداخت
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => {
+                        m.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    document.getElementById('payment-method').value = this.getAttribute('data-method');
+                });
+            });
+            
+            // ارسال فرم پرداخت
+            document.getElementById('payment-form').addEventListener('submit', handlePayment);
+        }
+        
+        // بارگذاری داده‌ها از فایل CSV
+        async function loadCSVData() {
+            try {
+                showLoading();
+                
+                // در محیط واقعی، این آدرس باید به فایل CSV روی سرور اشاره کند
+                const response = await fetch(CSV_FILE_PATH);
+                
+                if (!response.ok) {
+                    throw new Error('خطا در بارگذاری فایل CSV');
+                }
+                
+                const csvData = await response.text();
+                parseCSVData(csvData);
+                
+            } catch (error) {
+                console.error('خطا:', error);
+                // اگر فایل CSV موجود نبود، از داده‌های نمونه استفاده می‌کنیم
+                loadSampleData();
+            }
+        }
+        
+        // تجزیه داده‌های CSV
+        function parseCSVData(csvData) {
+            const lines = csvData.split('\n');
+            const transactions = [];
+            
+            // فرض می‌کنیم که فایل CSV دارای هدر است
+            // فرمت: نوع,عنوان,مبلغ,شخص,تاریخ,دسته‌بندی
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const parts = line.split(',');
+                if (parts.length < 6) continue;
+                
+                transactions.push({
+                    type: parts[0],
+                    title: parts[1],
+                    amount: parseInt(parts[2]),
+                    person: parts[3],
+                    date: parts[4],
+                    category: parts[5]
+                });
+            }
+            
+            document.getElementById('last-update').textContent = new Date().toLocaleDateString('fa-IR');
+            updateUI(transactions);
+        }
+        
+        // بارگذاری داده‌های نمونه (در صورت عدم وجود فایل CSV)
+        function loadSampleData() {
+            const transactions = [
+                {
+                    type: 'income',
+                    title: 'کمک مالی اولیا - مهرماه',
+                    amount: 5000000,
+                    person: 'انجمن اولیا و مربیان',
+                    date: '1402/07/05',
+                    category: 'کمک مالی'
+                },
+                {
+                    type: 'expense',
+                    title: 'خرید کتاب‌های درسی پایه اول',
+                    amount: 2500000,
+                    person: 'مدیریت مدرسه',
+                    date: '1402/07/15',
+                    category: 'کالای آموزشی'
+                },
+                {
+                    type: 'income',
+                    title: 'کمک خیرین مدرسه',
+                    amount: 7500000,
+                    person: 'بنیاد خیریه دانش',
+                    date: '1402/07/10',
+                    category: 'کمک خیرین'
+                },
+                {
+                    type: 'expense',
+                    title: 'تعمیر سیستم گرمایشی سالن',
+                    amount: 4200000,
+                    person: 'مدیریت مدرسه',
+                    date: '1402/07/10',
+                    category: 'تعمیرات و نگهداری'
+                },
+                {
+                    type: 'expense',
+                    title: 'تهیه وسایل ورزشی',
+                    amount: 1800000,
+                    person: 'مدیریت مدرسه',
+                    date: '1402/06/28',
+                    category: 'ورزشی'
+                },
+                {
+                    type: 'expense',
+                    title: 'برگزاری اردوی علمی',
+                    amount: 1200000,
+                    person: 'مدیریت مدرسه',
+                    date: '1402/06/15',
+                    category: 'فعالیت‌های فوق برنامه'
+                }
+            ];
+            
+            document.getElementById('last-update').textContent = '۱۴۰۲/۰۷/۲۰';
+            updateUI(transactions);
+        }
+        
+        // پردازش پرداخت
+        function handlePayment(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('donor-name').value;
+            const phone = document.getElementById('donor-phone').value;
+            const amount = parseInt(document.getElementById('amount').value);
+            const method = document.getElementById('payment-method').value;
+            
+            if (!method) {
+                alert('لطفاً روش پرداخت را انتخاب کنید');
+                return;
+            }
+            
+            // در اینجا می‌توانید پرداخت واقعی را انجام دهید
+            // برای نمایش، فقط یک پیام نشان می‌دهیم
+            
+            // بستن مودال و ریست فرم
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('payment-form').reset();
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected');
+            });
+            document.getElementById('payment-method').value = '';
+            
+            // نمایش پیام موفقیت
+            alert(`پرداخت شما با موفقیت ثبت شد. مبلغ ${formatNumber(amount)} تومان با تشکر از شما\n\nدر محیط واقعی، این تراکنش به فایل CSV اضافه خواهد شد.`);
+        }
+        
+        // نمایش وضعیت بارگذاری
+        function showLoading() {
+            document.getElementById('transaction-list').innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    در حال بارگذاری اطلاعات...
+                </div>
+            `;
+        }
+        
+        // به‌روزرسانی رابط کاربری
+        function updateUI(transactions) {
+            updateSummaryCards(transactions);
+            updateTransactionList(transactions);
+            updateChart(transactions);
+        }
+        
+        // به‌روزرسانی کارت‌های خلاصه
+        function updateSummaryCards(transactions) {
+            let totalIncome = 0;
+            let totalExpense = 0;
+            
+            transactions.forEach(transaction => {
+                if (transaction.type === 'income') {
+                    totalIncome += transaction.amount;
+                } else if (transaction.type === 'expense') {
+                    totalExpense += transaction.amount;
+                }
+            });
+            
+            document.getElementById('total-income').textContent = formatNumber(totalIncome);
+            document.getElementById('total-expense').textContent = formatNumber(totalExpense);
+            document.getElementById('total-balance').textContent = formatNumber(totalIncome - totalExpense);
+        }
+        
+        // به‌روزرسانی لیست تراکنش‌ها
+        function updateTransactionList(transactions) {
+            const transactionList = document.getElementById('transaction-list');
+            
+            if (transactions.length === 0) {
+                transactionList.innerHTML = '<div class="loading">هیچ تراکنشی یافت نشد</div>';
+                return;
+            }
+            
+            transactionList.innerHTML = '';
+            
+            transactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = `transaction-item ${transaction.type}`;
+                
+                const icon = transaction.type === 'income' ? 
+                    '<i class="fas fa-hand-holding-usd"></i>' : 
+                    '<i class="fas fa-money-bill-wave"></i>';
+                
+                const amountSign = transaction.type === 'income' ? '+' : '-';
+                
+                transactionItem.innerHTML = `
+                    <div class="transaction-icon">
+                        ${icon}
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-header">
+                            <h3 class="transaction-title">${transaction.title}</h3>
+                            <div class="transaction-amount">${amountSign} ${formatNumber(transaction.amount)} تومان</div>
+                        </div>
+                        <div class="transaction-meta">
+                            <span class="transaction-person">
+                                <i class="fas fa-user"></i>
+                                ${transaction.person}
+                            </span>
+                            <span class="transaction-date">${transaction.date}</span>
+                            <span class="transaction-category">${transaction.category}</span>
+                        </div>
+                    </div>
+                `;
+                
+                transactionList.appendChild(transactionItem);
+            });
+        }
+        
+        // به‌روزرسانی نمودار
+        function updateChart(transactions) {
+            const chart = document.getElementById('chart');
+            chart.innerHTML = '';
+            
+            // گروه‌بندی تراکنش‌ها بر اساس دسته‌بندی
+            const categories = {};
+            
+            transactions.forEach(transaction => {
+                if (!categories[transaction.category]) {
+                    categories[transaction.category] = {
+                        income: 0,
+                        expense: 0
+                    };
+                }
+                
+                if (transaction.type === 'income') {
+                    categories[transaction.category].income += transaction.amount;
+                } else {
+                    categories[transaction.category].expense += transaction.amount;
+                }
+            });
+            
+            // پیدا کردن بیشترین مقدار برای مقیاس نمودار
+            let maxAmount = 0;
+            Object.values(categories).forEach(cat => {
+                maxAmount = Math.max(maxAmount, cat.income, cat.expense);
+            });
+            
+            if (maxAmount === 0) {
+                chart.innerHTML = '<div class="loading">داده‌ای برای نمایش وجود ندارد</div>';
+                return;
+            }
+            
+            // ایجاد میله‌های نمودار
+            Object.keys(categories).forEach(category => {
+                const catData = categories[category];
+                
+                if (catData.income > 0) {
+                    const incomeBar = document.createElement('div');
+                    incomeBar.className = 'chart-bar income';
+                    incomeBar.style.height = `${(catData.income / maxAmount) * 80}%`;
+                    incomeBar.innerHTML = `
+                        <div class="chart-value">${formatNumber(catData.income)}</div>
+                        <div class="chart-label">درآمد ${category}</div>
+                    `;
+                    chart.appendChild(incomeBar);
+                }
+                
+                if (catData.expense > 0) {
+                    const expenseBar = document.createElement('div');
+                    expenseBar.className = 'chart-bar expense';
+                    expenseBar.style.height = `${(catData.expense / maxAmount) * 80}%`;
+                    expenseBar.innerHTML = `
+                        <div class="chart-value">${formatNumber(catData.expense)}</div>
+                        <div class="chart-label">هزینه ${category}</div>
+                    `;
+                    chart.appendChild(expenseBar);
+                }
+            });
+        }
+        
+        // فرمت کردن اعداد به صورت فارسی
+        function formatNumber(num) {
+            return new Intl.NumberFormat('fa-IR').format(num);
+        }
+    </script>
+</body>
+</html>
