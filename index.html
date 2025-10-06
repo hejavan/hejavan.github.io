@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صندوق مالی مدرسه</title>
+    <title>صندوق مالی مدرسه هجوان</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -492,16 +492,25 @@
         }
         
         .chart {
-            height: 300px;
+            height: 350px;
             display: flex;
             align-items: flex-end;
             justify-content: space-around;
-            gap: 10px;
-            padding: 20px 0;
+            gap: 15px;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .chart-bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 80px;
         }
         
         .chart-bar {
-            flex: 1;
+            width: 40px;
             background: linear-gradient(to top, #3b82f6, #60a5fa);
             border-radius: 5px 5px 0 0;
             position: relative;
@@ -519,29 +528,57 @@
         
         .chart-label {
             position: absolute;
-            bottom: -25px;
+            bottom: -40px;
             left: 0;
             width: 100%;
             text-align: center;
             font-size: 0.8rem;
             color: #64748b;
+            word-wrap: break-word;
+            max-width: 80px;
+            line-height: 1.3;
         }
         
         .chart-value {
             position: absolute;
-            top: -25px;
+            top: -30px;
             left: 0;
             width: 100%;
             text-align: center;
             font-size: 0.8rem;
             font-weight: bold;
             color: #1e293b;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 5px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .loading {
             text-align: center;
             padding: 20px;
             color: #64748b;
+        }
+        
+        @media (max-width: 768px) {
+            .chart {
+                height: 300px;
+                gap: 8px;
+            }
+            
+            .chart-bar {
+                width: 30px;
+            }
+            
+            .chart-label {
+                font-size: 0.7rem;
+                bottom: -35px;
+            }
+            
+            .chart-value {
+                font-size: 0.7rem;
+                top: -25px;
+            }
         }
     </style>
 </head>
@@ -558,13 +595,13 @@
                 بروزرسانی اطلاعات
             </button>
             <button class="edit-btn" id="edit-btn">
-                <i class="fas fa-edit-alt"></i>
+                <i class="fas fa-edit"></i>
                 ویرایش اطلاعات
             </button>
-            <button class="donate-btn" id="donate-btn">
+            <!-- <button class="donate-btn" id="donate-btn">
                 <i class="fas fa-donate"></i>
                 پرداخت کمک مالی
-            </button>
+            </button> -->
         </div>
         
         <div class="summary-cards">
@@ -670,8 +707,8 @@
             
             // ویرایش اطلاعات
             document.getElementById('edit-btn').addEventListener('click', function() {
-    window.open('https://docs.google.com/spreadsheets/d/1REA4d7ZXSTZXLTxZlKztiexZ9erah8ci-U3f6ToQLW4/edit?pli=1&gid=0#gid=0', '_blank');
-});
+                window.open('https://docs.google.com/spreadsheets/d/1REA4d7ZXSTZXLTxZlKztiexZ9erah8ci-U3f6ToQLW4/edit?pli=1&gid=0#gid=0', '_blank');
+            });
             
             // باز کردن مودال پرداخت
             document.getElementById('donate-btn').addEventListener('click', function() {
@@ -864,9 +901,9 @@
                 }
             });
             
-            document.getElementById('total-income').textContent = formatNumber(totalIncome);
-            document.getElementById('total-expense').textContent = formatNumber(totalExpense);
-            document.getElementById('total-balance').textContent = formatNumber(totalIncome - totalExpense);
+            document.getElementById('total-income').textContent = formatNumber(totalIncome) + ' تومان';
+            document.getElementById('total-expense').textContent = formatNumber(totalExpense) + ' تومان';
+            document.getElementById('total-balance').textContent = formatNumber(totalIncome - totalExpense) + ' تومان';
         }
         
         // به‌روزرسانی لیست تراکنش‌ها
@@ -952,15 +989,18 @@
             Object.keys(categories).forEach(category => {
                 const catData = categories[category];
                 
+                // ایجاد یک کانتینر برای هر دسته‌بندی
+                const categoryContainer = document.createElement('div');
+                categoryContainer.className = 'chart-bar-container';
+                
                 if (catData.income > 0) {
                     const incomeBar = document.createElement('div');
                     incomeBar.className = 'chart-bar income';
                     incomeBar.style.height = `${(catData.income / maxAmount) * 80}%`;
                     incomeBar.innerHTML = `
                         <div class="chart-value">${formatNumber(catData.income)}</div>
-                        <div class="chart-label">درآمد ${category}</div>
                     `;
-                    chart.appendChild(incomeBar);
+                    categoryContainer.appendChild(incomeBar);
                 }
                 
                 if (catData.expense > 0) {
@@ -969,10 +1009,17 @@
                     expenseBar.style.height = `${(catData.expense / maxAmount) * 80}%`;
                     expenseBar.innerHTML = `
                         <div class="chart-value">${formatNumber(catData.expense)}</div>
-                        <div class="chart-label">هزینه ${category}</div>
                     `;
-                    chart.appendChild(expenseBar);
+                    categoryContainer.appendChild(expenseBar);
                 }
+                
+                // اضافه کردن برچسب دسته‌بندی
+                const label = document.createElement('div');
+                label.className = 'chart-label';
+                label.textContent = category;
+                categoryContainer.appendChild(label);
+                
+                chart.appendChild(categoryContainer);
             });
         }
         
