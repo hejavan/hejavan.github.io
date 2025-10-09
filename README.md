@@ -96,6 +96,7 @@ expense,خرید کتاب‌های درسی,1850000,مدیریت مدرسه,1402
 ```
 
 ![first](https://hejavan.github.io/Screenshot%20from%202025-10-09%2010-16-12.png)
+
 ![second](https://hejavan.github.io/Screenshot%20from%202025-10-09 10-16-59.png)
 
 ### مرحله ۴: ایجاد ریپازیتوری GitHub
