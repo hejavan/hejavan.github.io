@@ -65,7 +65,7 @@
 |----------|----------|-----------|------------|-----------|----------|
 | `نوع` | `عنوان` | `مبلغ` | `شخص` | `تاریخ` | `دسته‌بندی` |
 
-![ساختار شیت]([https://i.imgur.com/example.png](https://docs.google.com/spreadsheets/d/1REA4d7ZXSTZXLTxZlKztiexZ9erah8ci-U3f6ToQLW4/edit?pli=1&gid=0#gid=0))
+![ساختار شیت]([blob:https://github.com/977895e7-8e38-4a2d-a5dd-a94b045c7060](blob:https://github.com/977895e7-8e38-4a2d-a5dd-a94b045c7060))
 
 #### ج) وارد کردن داده‌های نمونه
 می‌توانید از داده‌های نمونه زیر استفاده کنید:
